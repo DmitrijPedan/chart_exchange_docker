@@ -1,0 +1,13 @@
+.cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+h5 {
+    margin: 10px;
+    color: rgb(189, 189, 189);
+    font-weight: 400;
+    font-size: 18px;
+}

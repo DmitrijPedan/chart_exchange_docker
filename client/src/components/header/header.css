@@ -1,0 +1,44 @@
+header {
+    background-color: #393b3d;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 11;
+    -webkit-box-shadow: 0px 2px 16px 0px rgba(255,170,0,1);
+    -moz-box-shadow: 0px 2px 16px 0px rgba(255,170,0,1);
+    box-shadow: 0px 2px 16px 0px rgba(255,170,0,1);
+}
+
+.header-menu {
+    padding: 15px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-logo {
+    color: rgb(255, 255, 255);
+    margin: 0;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+}
+.header-logo span {
+    color: rgb(255, 136, 0);
+    font-weight: 800;
+}
+
+.header-data p {
+    color: rgb(209, 194, 194);
+    font-size: 14px;
+    text-align: right;
+    margin: 0;
+}
+
+.data-ok {
+    color: limegreen;
+}
+
+.data-false {
+    color: rgb(241, 0, 0);
+}

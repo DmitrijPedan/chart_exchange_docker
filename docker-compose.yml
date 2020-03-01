@@ -1,0 +1,19 @@
+version: '3.6'
+services: 
+    api:
+        build: docker/node
+        restart: unless-stopped
+        environment: 
+            API_PORT: ${API_PORT}
+        ports: 
+            - "5000:5000"
+        volumes: 
+            - "./api:/www"
+        
+    client:
+        build: docker/node
+        restart: unless-stopped
+        ports: 
+            - "80:3000"
+        volumes: 
+            - "./client:/www"
