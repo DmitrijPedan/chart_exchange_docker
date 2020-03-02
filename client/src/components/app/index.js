@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
-import * as urlConstants from '../../config/urlConstants';
+import moment from 'moment'
+// import {sortArray} from '../../services/sorting';
+// import * as urlConstants from '../../config/urlConstants';
 import {fetchDataArray} from '../../services/fetchData';
-import {sortArray} from '../../services/sorting';
 
 import Header from '../header';
 import Content from '../content';
@@ -10,26 +10,31 @@ import NoData from '../no_data';
 import Footer from '../footer';
 import './app.css';
 
+
 function App() {
 
     const [loaded, setLoaded] = useState(false);
-    const [exchangeRate, setExchangeRate] = useState([]);
-    const [metals, setMetals] = useState([]);
-    const [privat, setPrivat] = useState([]);
-    const [sort, setSort] = useState(false);
-         
+    
+    let dates = []
+    const start = moment('2020-02-01');
+    const end = moment('2020-02-03');
+    const differ = end.diff(start, 'days')
+    for (let i = 0; i < differ + 1; i++) {
+        dates.push(start.clone().add(i, 'd').format('DD.MM.YYYY'))
+    }
+
+            
     useEffect(() => {
         async function fetchData () {
             try {
-                const countries = await fetchDataArray(urlConstants.REST_COUNTRIES);
-                const exchangeNBU = await fetchDataArray(urlConstants.NBU_EXCHANGE);
-                const exchangePrivat = await fetchDataArray(urlConstants.PRIVAT_EXCHANGE);
                 let result = []
-                exchangeNBU.forEach(elem => countries.forEach(el => (elem.cc === el.currencies[0].code) ? result.push(Object.assign(el, elem)) : null));
-                setExchangeRate(result);
-                setMetals(exchangeNBU.filter(el => el.cc[0] === 'X' && el.cc !== 'XDR'));
-                setPrivat(exchangePrivat);
-                setLoaded(true);
+                for (let i = 0; i < dates.length; i++) {
+                    let day = await fetchDataArray(`http://localhost:5000/api?date=${dates[i]}`);
+                    console.log(day.date, 'ok', moment().format('LTS'));
+                    result.push(day);
+                }
+                console.log(result);
+                setLoaded(true);            
             } catch (err) {
                 console.error('Error in App:', err);
             }
@@ -37,31 +42,11 @@ function App() {
     fetchData();
     }, [])
 
-    useEffect(() => {
-        async function fetchLocal () {
-            try {
-                const local = await fetchDataArray('http://localhost:5000/api?date=01.01.2020');
-                console.log(local);
-                
-            } catch (err) {
-                console.error('Error in App:', err);
-            }
-    }     
-    fetchLocal();
-    }, [])
-  
-    const handler = (arr, key) => {
-        sortArray(arr, key)
-        setSort(!sort)
-    }
-
     return (
         <div className="App" >
             <Header loaded = {loaded}/>
                 <main>
-                {loaded ? 
-                    <Content exchangeRate = {exchangeRate} metals = {metals} privat = {privat} sortArray = {handler}/> 
-                    : <NoData /> }
+                {loaded ? <h5>data is loaded</h5> : <NoData /> }
                 </main>
             <Footer />
         </div> 

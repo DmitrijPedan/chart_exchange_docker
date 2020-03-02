@@ -17,6 +17,10 @@ body {
   background-color: #494b4d; 
 }
 
+main {
+  text-align: center;
+}
+
 .container {
   width: 80%;
   margin: auto;
