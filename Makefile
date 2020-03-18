@@ -16,10 +16,3 @@ connect_api:
 start_api:
 	@docker-compose exec -w /www api npm run dev
 
-connect_client:
-	@docker-compose exec -w /www client bash
-
-start_client:
-	@docker-compose exec -w /www client npm run start
-
-

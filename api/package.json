@@ -1,5 +1,5 @@
 {
-  "name": "chart_exchange_api",
+  "name": "exchange_api",
   "version": "1.0.0",
   "description": "api_server",
   "main": "index.js",

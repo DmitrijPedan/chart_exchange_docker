@@ -9,11 +9,3 @@ services:
             - "5000:5000"
         volumes: 
             - "./api:/www"
-        
-    client:
-        build: docker/node
-        restart: unless-stopped
-        ports: 
-            - "80:3000"
-        volumes: 
-            - "./client:/www"
